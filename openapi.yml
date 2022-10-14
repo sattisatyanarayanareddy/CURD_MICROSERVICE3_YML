@@ -1,0 +1,136 @@
+openapi: '3.0.2'
+info:
+  title: MICRO SERVICES CURD OPERATIONS
+  version: '2.0'
+servers:
+  - url: http://localhost:8085
+
+
+paths:
+  /createAnswers:
+    post:
+      tags:
+        - user
+      description: CreateAnswers 
+      operationId: CreateAnswers
+      responses:
+        '201':
+          description: CreateAnswers Sucessfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: CreateAnswers Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        description: CreateAnswers
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BODYDATA'
+  /getAnswers:
+    get:
+      tags:
+        - user
+      description:  GetAnswers
+      operationId: GetAnswers
+      responses:
+        '201':
+          description: Get Answers Sucessfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BODYDATA'
+        '400':
+          description: Get Answers Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /UpdateAnswers/{ques_id}:
+    put:
+      tags:
+        - User
+      description:  UpdateAnswers
+      operationId: UpdateAnswers
+      parameters:
+        - name: ques_id
+          in: path
+          description: ques_id 
+          required: true
+          schema:
+            type: number
+      responses:
+        '201':
+          description: Update Answers Sucess
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Update Answers Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        description: UpdateAnswers
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BODYDATA'
+  /deleteAnswers/{ques_id}:
+    delete:
+      tags:
+        - user
+      description:  deleteAnswers
+      operationId: deleteAnswers
+      parameters:
+        - name: ques_id
+          in: path
+          description: ques_id 
+          required: true
+          schema:
+            type: number
+      responses:
+        '201':
+          description:  DeleteAnswerSucessFully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: DeleteAnswerFailure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            
+
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      description:  ResponseInStatusCode
+      properties:
+        code: 
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string    
+          
+    BODYDATA:
+      type: object
+      properties:
+        ques_id: 
+          type: number
+        answer:
+          type: string
